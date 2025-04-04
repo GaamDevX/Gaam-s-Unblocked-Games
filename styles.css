@@ -29,6 +29,13 @@ body {
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(253, 121, 168, 0.1) 0%, transparent 20%);
+    animation: backgroundPulse 8s ease-in-out infinite;
+}
+
+@keyframes backgroundPulse {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
 }
 
 .container {
@@ -36,6 +43,7 @@ body {
     margin: 0 auto;
     padding: 20px;
     position: relative;
+    perspective: 1000px;
 }
 
 header {
@@ -48,8 +56,13 @@ header {
     border-radius: 20px;
     position: relative;
     overflow: hidden;
-    transform: translateY(0);
+    transform: translateY(0) rotateX(0);
     transition: var(--transition);
+    transform-style: preserve-3d;
+}
+
+header:hover {
+    transform: translateY(-5px) rotateX(5deg);
 }
 
 header::before {
@@ -70,6 +83,13 @@ h1 {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     position: relative;
     display: inline-block;
+    animation: textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
 }
 
 .nav-buttons {
@@ -95,6 +115,7 @@ h1 {
     gap: 10px;
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
 }
 
 .nav-btn::before {
@@ -107,21 +128,23 @@ h1 {
     background: var(--gradient);
     opacity: 0.2;
     transition: var(--transition);
+    transform: translateZ(-1px);
+}
+
+.nav-btn:hover {
+    transform: translateY(-3px) rotateX(5deg);
+    box-shadow: var(--hover-shadow);
+    border-color: var(--accent-color);
 }
 
 .nav-btn:hover::before {
     left: 0;
 }
 
-.nav-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--hover-shadow);
-    border-color: var(--accent-color);
-}
-
 .nav-btn.active {
     background: var(--gradient);
     border-color: transparent;
+    transform: scale(1.05) rotateX(5deg);
 }
 
 .section {
@@ -136,15 +159,16 @@ h1 {
     border-radius: 20px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
+    transform: translateY(20px) rotateX(10deg);
     transition: var(--transition);
+    transform-style: preserve-3d;
 }
 
 .section.active {
     position: relative;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) rotateX(0);
 }
 
 .category-filters {
@@ -164,18 +188,19 @@ h1 {
     border-radius: 15px;
     cursor: pointer;
     transition: var(--transition);
+    transform-style: preserve-3d;
 }
 
 .category-btn:hover {
     background: var(--gradient);
     border-color: transparent;
-    transform: translateY(-2px);
+    transform: translateY(-2px) rotateX(5deg);
 }
 
 .category-btn.active {
     background: var(--gradient);
     border-color: transparent;
-    transform: scale(1.05);
+    transform: scale(1.05) rotateX(5deg);
 }
 
 .games-grid {
@@ -183,6 +208,7 @@ h1 {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
     margin-top: 30px;
+    perspective: 1000px;
 }
 
 .game-card {
@@ -193,6 +219,7 @@ h1 {
     overflow: hidden;
     transition: var(--transition);
     position: relative;
+    transform-style: preserve-3d;
 }
 
 .game-card::before {
@@ -206,10 +233,11 @@ h1 {
     opacity: 0;
     transition: var(--transition);
     z-index: 1;
+    transform: translateZ(-1px);
 }
 
 .game-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) rotateX(5deg);
     box-shadow: var(--hover-shadow);
     border-color: var(--accent-color);
 }
@@ -223,6 +251,7 @@ h1 {
     text-align: center;
     position: relative;
     z-index: 2;
+    transform-style: preserve-3d;
 }
 
 .game-card h3 {
@@ -230,6 +259,7 @@ h1 {
     margin-bottom: 15px;
     font-size: 1.4em;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    transform: translateZ(20px);
 }
 
 .game-category {
@@ -240,6 +270,7 @@ h1 {
     border-radius: 15px;
     font-size: 0.9em;
     margin-bottom: 15px;
+    transform: translateZ(10px);
 }
 
 .game-description {
@@ -247,6 +278,7 @@ h1 {
     margin-bottom: 20px;
     font-size: 1em;
     opacity: 0.8;
+    transform: translateZ(5px);
 }
 
 .action-btn {
@@ -263,10 +295,11 @@ h1 {
     gap: 10px;
     width: 100%;
     font-size: 1.1em;
+    transform-style: preserve-3d;
 }
 
 .action-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) rotateX(5deg);
     box-shadow: var(--hover-shadow);
 }
 
@@ -280,6 +313,7 @@ h1 {
     padding: 20px;
     border-radius: 15px;
     border: 1px solid var(--glass-border);
+    transform-style: preserve-3d;
 }
 
 .color-picker input[type="color"] {
@@ -289,10 +323,11 @@ h1 {
     border-radius: 10px;
     cursor: pointer;
     transition: var(--transition);
+    transform: translateZ(10px);
 }
 
 .color-picker input[type="color"]:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(15px);
 }
 
 .request-form {
@@ -312,6 +347,7 @@ h1 {
     background: var(--glass-bg);
     backdrop-filter: blur(5px);
     border: 1px solid var(--glass-border);
+    transform-style: preserve-3d;
 }
 
 @keyframes gradientFlow {
@@ -348,4 +384,4 @@ h1 {
         flex-direction: column;
         align-items: stretch;
     }
-} 
+}
